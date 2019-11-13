@@ -139,7 +139,7 @@
     7.多线程死锁：multithreading\src\main\java\pers\li\thread\deadlock
         -每个线程互相持有别人需要的锁
         -预防死锁，对资源进行等级排序
-    8.守护线程：
+    8.守护线程：multithreading\src\main\java\pers\li\thread\daemon
         -普通线程的结束，是run方法运行结束
         -守护线程的结束，是run方法运行结束，或mian函数结束
         -守护线程永远不要访问资源，如文件，数据库等，因为main函数，结束，他就会被强制结束，可能造成资源来不及释放
@@ -155,4 +155,54 @@
 
 **7.java并发框架：**
 
-    
+    1.并行计算：
+        ·业务特点：任务多，数据量大
+        ·串行&并行：
+            -串行编程容易，并行编程困难
+            -单个计算核频率下降，计算核数增多，整体性能变高（单核可能2G左右，可能有8核，16核，32核，所以整体性能提高）
+        ·多核编程既要涉及并行：任务分配和执行过程高度耦合
+            -如何控制粒度,切割任务
+            -如何分配任务给线程，监督线程执行过程
+    2.并行模式：
+        -主从模式   Master-Slave  主线程分配从线程工作
+        -worker模式 Worker-Worker 所有线程执行相同任务
+    3.并发编程：
+        -Thread/Runnable/Thread组管理
+        -Excutor - 重点
+        -Fork-Join框架
+
+**8.线程组管理：**
+
+    1.线程组ThreadGroup: --解决不了任务分配和执行过程中的监督高度耦合问题
+        -线程的集合
+        -树形结构，大线程组可以包括线程组
+        -可以通过enumerate方法遍历组内的线程，执行操作
+        -能够有效管理多个线程，但是管理效率低
+        -任务分配和执行过程高度耦合
+        -重复创建线程，关闭线程操作，无法重用线程
+        -注意：
+            线程和线程组内的线程都是new产生出来，但是start一次以后
+            就不能再次使用，即再次start
+            new的代价很昂贵，只允许一次，性价比过低
+    2.Executor：
+        1.从jdk5开始提供Executor FrameWork（java.util.concurrent.*）
+            -分离任务的创建和执行者的创建
+            -线程重复利用（new线程代价很大）
+        2.理解共享线程池的概念：
+            -预设好的多个Thread，可弹性增加
+            -多次执行很多很小的任务
+            -任务创建和执行过程解耦
+            -程序员无需关心线程池执行任务过程
+        3.主要类：ExecutorService,ThreadPoolExecutor,Future
+            -Executors.newCachedThreadPool/newFixedThreadPool创建线程池
+            -ExecutorService线程池服务
+            -Callable具体的逻辑对象-线程类
+                和Runnable接口等价，可以用来执行一个任务
+                Runnable的闰方法没有返回值
+                Callable的call方法可以有返回值
+            -Future返回结果
+            -
+            -
+            -
+            -
+        
