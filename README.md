@@ -108,4 +108,51 @@
             -保证不同线程对共享变量操作时的可见性
     7.关键步骤加锁限制：
         -互斥：同步代码块，一次只能有一个线程运行
-        -synchronized：加大性能负担，但是使用简便    
+        -synchronized：加大性能负担，但是使用简便
+        
+        
+**6.多线程管理：**
+    
+    1.线程状态：
+        NEW         新建new
+        RUNNABLE    就绪start，调用start时处于就绪状态，等待cpu调度器分配
+        RUNNING     运行run
+        BLOCK       阻塞sleep
+        TERMINATED  结束    
+    2.Thread的部分api已废弃：
+        -暂停和恢复suspend、resume
+        -消亡 stop和destory
+    3.线程阻塞和唤醒：
+        -sleep  到时继续执行
+        -wait，notify，notifyAll  等待需要别人来唤醒
+        -join       等待另外一个线程结束
+        -interrupt  向另外一个线程发送中断信号，该线程收到信号，会触发InterruptedException（可解除阻塞），并进行下一步处理
+    4.生产者消费者示例：multithreading\src\main\java\pers\li\thread\product
+    5.线程被动的暂停和停止：
+        -依靠别的线程来拯救自己
+        -没有及时释放资源
+    6.线程主动暂停和停止：--> 更好，可以保证资源释放
+        -定期监测共享变量
+        -如果需要暂停或终止，先释放资源，在主动动作
+        -暂停：Thread.sleep(),休眠
+        -终止：run方法结束，线程终止
+    7.多线程死锁：multithreading\src\main\java\pers\li\thread\deadlock
+        -每个线程互相持有别人需要的锁
+        -预防死锁，对资源进行等级排序
+    8.守护线程：
+        -普通线程的结束，是run方法运行结束
+        -守护线程的结束，是run方法运行结束，或mian函数结束
+        -守护线程永远不要访问资源，如文件，数据库等，因为main函数，结束，他就会被强制结束，可能造成资源来不及释放
+    9.线程查看工具jvisualvm：java自带的分析工具
+        -打开cmd --> 输入jvisualvm进行线程监测
+    10.总结：
+        -了解线程多个状态
+        -了解线程协作机制
+        -线程协作尽量简单化，采用粗粒度协作
+        -了解死锁和后台线程（守护线程）概念
+        -使用jvisualvm查看线程执行情况
+        -尽量采用共享变量监控方式控制线程状态
+
+**7.java并发框架：**
+
+    
