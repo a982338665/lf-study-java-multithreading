@@ -13,8 +13,9 @@ public class Server {
 	private ThreadPoolExecutor executor;
 	
 	public Server(){
+		//创建无界线程池
 		executor=(ThreadPoolExecutor)Executors.newCachedThreadPool();
-		//executor=(ThreadPoolExecutor)Executors.newFixedThreadPool(5);
+//		executor=(ThreadPoolExecutor)Executors.newFixedThreadPool(5);
 	}
 	
 	//向线程池提交任务

@@ -201,8 +201,39 @@
                 Runnable的闰方法没有返回值
                 Callable的call方法可以有返回值
             -Future返回结果
-            -
-            -
-            -
-            -
-        
+        4.建议：在进行多线程编程时，尽量使用该框架，提高多线程执行效率
+    3.fork-join：--> 分治求和
+        ·java7提供了另一中并行框架：分解，治理，合并（分治编程）
+        ·适合用于整体任务量不好确定的场合（最小任务可确定），例如求和一个不知道多长的数组内容：二分法分成小单位，然后求和，最后合并结果
+        -关键类：
+            -ForkJoinPool任务池
+            -RecursiveAction
+            -RecursiveTask
+
+**8.并发数据结构：**
+    
+    1.常用的数据结构是线程不安全的
+        -ArrayList，HashMap，HashSet非同步的
+        -多个线程同时读写，可能会抛出异常或数据错误
+    2.传统Vector，Hashtable等同步集合性能过差
+    3.并发数据结构：数据添加和删除
+        -阻塞式集合：当集合为空或者满时，等待
+        -非阻塞式集合：当集合为空或者满时，不等待，返回null或异常
+    4.集合：
+        1.List
+            ·Vector同步安全，适合环境：写多读少
+            ·ArrayList不安全
+            ·Collections.synchronizedList(List list)基于synchronized，效率差
+            ·CopyOnWriteArrayList 读多写少，基于复制机制，非阻塞
+        2.Set
+            `HashSet不安全
+            `Collections.synchronizedSet(Set set)基于synchronized，效率差
+            `CopyOnWriteArraySet，基于CopyOnWriteArrayList 读多写少，非阻塞
+        3.Map
+            ·Hashtable同步安全，写多读少
+            ·HashMap不安全
+            ·Collections.synchronizedMap(Map map)基于synchronized，效率差
+            ·ConcurrentHashMap读多写少，非阻塞
+        4.Queue % Deque(队列，jdk1.5提出)
+            ·ConcurrentLinkedQueue 非阻塞
+            ·ArrayBlockingQueue/LinkedBlockingQueue阻塞

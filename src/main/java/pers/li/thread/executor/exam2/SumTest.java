@@ -12,7 +12,7 @@ public class SumTest {
 
 	public static void main(String[] args) {
 		
-		// 执行线程池
+		// 执行线程池，一般设置线程数为cpu核数的两倍或4倍,防止线程数膨胀到几千，很危险
 		ThreadPoolExecutor executor=(ThreadPoolExecutor)Executors.newFixedThreadPool(4);
 		
 		List<Future<Integer>> resultList=new ArrayList<>();
