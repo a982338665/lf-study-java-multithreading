@@ -237,3 +237,40 @@
         4.Queue % Deque(队列，jdk1.5提出)
             ·ConcurrentLinkedQueue 非阻塞
             ·ArrayBlockingQueue/LinkedBlockingQueue阻塞
+
+**9.并发协作控制：multithreading\src\main\java\pers\li\thread\lock**
+    
+    1.Thread/Executor/Fork-Join
+        -线程启动运行结束
+        -线程之间缺少协作
+    2.synchronized同步：
+        -限定只有一个线程才能进入关键区
+        -简单粗暴，性能损失有点大
+    3.Lock可以实现同步效果 ———> java5后提供，性能比synchronized好
+        -实现更复杂的临界区结构
+        -tryLock方法可以预判锁是否空闲
+        -允许分离读写的操作，多个读，一个写
+        -性能更好
+    4.ReentrantLock类，可重入的互斥锁
+    5.ReentrantReadWriteLock类，可重入的读写锁
+    6.lock和unlock函数
+    7.semaphore
+        ·信号量，由1965年dijkstra提出的
+        ·信号量：本质是个计数器
+        ·计数器大于0，可以使用，等于0不能使用
+        ·可以设置多个并发量，例如限制10个访问
+        ·Semaphore
+            -acquire获取
+            -release释放
+        ·比Lock更进一步，可以控制多个同时访问关键区
+    
+**10.定时任务：multithreading\src\main\java\pers\li\thread\schedule**
+    
+    1.简单定时器机制：
+        -TimerTask封装任务
+        -Timer类 定时器
+    2.Executor+定时器机制
+        -ScheduledExecutorService
+            -定时任务
+            -周期任务
+    
