@@ -266,6 +266,7 @@
     
 **10.定时任务：multithreading\src\main\java\pers\li\thread\schedule**
     
+        
     1.简单定时器机制：
         -TimerTask封装任务
         -Timer类 定时器
@@ -273,4 +274,9 @@
         -ScheduledExecutorService
             -定时任务
             -周期任务
-    
+    3.Quartz
+        -是一个较为完善的任务调度框架
+        -解决程序中timer零散管理的问题
+        -功能更加强大
+            ·Timer执行周期任务，如果中间有一次异常，整个任务将终止
+            ·Quartz执行周期任务，如果中间有一次异常，不影响下次执行任务
