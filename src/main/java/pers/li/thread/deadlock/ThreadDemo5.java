@@ -3,7 +3,10 @@ package pers.li.thread.deadlock;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ *  -每个线程互相持有别人需要的锁
+ *  -预防死锁，对资源进行等级排序
+ *  线程查看工具jvisualvm：java自带的分析工具
+ *    -打开cmd --> 输入jvisualvm进行线程监测
  */
 public class ThreadDemo5 {
     public static Integer r1 = 1;
