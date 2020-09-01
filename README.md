@@ -1,5 +1,7 @@
 # multithreading
 ### java多线程和多进程
+>以下内容包含：华东师范大学的多线程讲解 及 马士兵多线程讲解
+>马士兵多线程讲解迁移位置：仓库 DOCRecord\ResteasyComplexDemo\src\pers\lishbo\timetask
 
 **1.多进程：**
     

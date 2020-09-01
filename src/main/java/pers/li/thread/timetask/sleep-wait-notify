@@ -1,0 +1,36 @@
+wait()是属于Object类的方法，从源码给出的解释来看，wait()方法可以做到如下几点：
+	（1）首先，调用了wait()之后会引起当前线程处于等待状状态。
+	（2）其次，每个线程必须持有该对象的monitor。
+		  如果在当前线程中调用wait()方法之后，该线程就会释放monitor的持有对象并让自己处于等待状态。
+	（3）如果想唤醒一个正在等待的线程，那么需要开启一个线程通过notify()或者notifyAll()方法
+		 去通知正在等待的线程获取monitor对象。如此，该线程即可打破等待的状态继续执行代码。
+		 -------------------------------
+（1）在线程的运行过程中，调用该线程持有monitor对象的wait()方法时，该线程首先会进入等待状态，并将自己持有的monitor对象释放。
+（2）如果一个线程正处于等待状态时，那么唤醒它的办法就是开启一个新的线程，通过notify()或者notifyAll()的方式去唤醒。当然，需要注意的一点就是，必须是同一个monitor对象。
+（3）sleep()方法虽然会使线程中断，但是不会将自己的monitor对象释放，在中断结束后，依然能够保持代码继续执行。
+http://blog.csdn.net/kaka534/article/details/51849285
+-------------------------------------------------------------
+--BlockingQueue:使用可阻塞队列来实现互斥，通信(需要几个就新建几个)
+		/**可存放三个数据的可阻塞队列**/
+		final BlockingQueue<Integer> block=new ArrayBlockingQueue<Integer>(3);
+		one.put(1);//阻塞队列可放一个数据，已装满，阻塞不执行
+		one.take();
+--CyclicBarrier：集合--分散--集合--分散
+		final CyclicBarrier cb=new 	CyclicBarrier(3);//等待三条线程集合完毕
+		cb.getNumberWaiting();
+		cb.await();//当三个线程都到集合点时，继续向下执行
+--CountDownLatch:计数线程--线程准备(n)--发布命令一起执行--等待都执行完--报告结果
+		final CountDownLatch start=new 	CountDownLatch(1);//表示countDown一次后等待失效
+		final CountDownLatch end=new 	CountDownLatch(3);//表示countDown三次后等待失效
+		start.countDown();//表示countDown一次
+		for循环3次或者三个线程每个countDown一次即表示三次
+		start.await();//计数完成后，等待失效向下执行
+--Semphore:用于控制并发线程个数
+		final Semaphore sp=new 	Semaphore(3,true);//true保证顺序执行
+		sp.acquire();//开始控制并发个数，超过则等待
+		(3-sp.availablePermits())//当前已存在并发数
+--Exchanger:线程之间的数据交换:两个数据之间，若有其中一个数据未查出则等待
+		final Exchanger start=new 	Exchanger();//一定是作为一个共享变量，等同于容器
+		String datachange=(String)start.exchange(data);//作为一个交换机，当两边均有数据时交换成功，单方面有数据时阻塞
+		//因此需要启动至少两个线程
+---------------------------------------------------------------
